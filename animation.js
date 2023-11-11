@@ -1,56 +1,43 @@
+import "./main.scss";
 import Lenis from "@studio-freight/lenis";
 import SplitType from "split-type";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger) 
+gsap.registerPlugin(ScrollTrigger);
 
-const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-}
+const images = gsap.utils.toArray("img");
+const text = gsap.utils.toArray(".st0");
 
-const heading = document.querySelector('h1');
-const headingSplit = new SplitType(heading);
-const images = gsap.utils.toArray('img');
-const letters = heading.querySelectorAll('.char');
-console.log(headingSplit);
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".imgContainer",
+    start: "top bottom",
+    end: "bottom center",
+    scrub: 4,
+  },
+});
 
-letters.forEach((letter, index) => {
-    const YPercent = randomNumber(70, 1100)
-    
-    gsap.fromTo(letter, {
-        yPercent: -YPercent,
-        opacity: 0,
-    }, {
-        yPercent: 0,
-        opacity: 1,
-        scrollTrigger: {
-            trigger: heading,
-            start: "top bottom",
-            end: "bottom center",
-            scrub: true,
-        }
-    })
-})
+images.forEach((image) => {
+  gsap.to(image, {
+    yPercent: -100 * image.dataset.speed,
+    ease: "none",
+    scrollTrigger: {
+      scrub: image.dataset.speed,
+    },
+  });
+});
 
-images.forEach(img => {
-    const speed = img.dataset.speed;
-
-    gsap.to(img, {
-        yPercent: -speed * 50,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: img,
-            start: 'top bottom',
-            scrub: true,
-        }
-    })
-})
+tl.to(text, {
+  strokeDashoffset: 0,
+}).to(text, {
+  strokeDashoffset: 470,
+});
 
 const lenis = new Lenis();
 
 function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf)
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
 
-requestAnimationFrame(raf)
+requestAnimationFrame(raf);
