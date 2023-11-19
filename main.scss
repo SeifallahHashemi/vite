@@ -2,57 +2,63 @@
 *,
 *::after,
 *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --input-color: #99a3ba;
+  --input-border: #cdd9ed;
+  --input-background: #fff;
+  --input-placeholder: #cbd1dc;
+
+  --input-border-focus: #275efe;
+  --inlinePadding: 1rem;
 }
 
 body {
-    min-height: 100vh;
-    font-family: 'Cast Trial','Bebas Neue', sans-serif;
-    font-weight: 400;
-    color: #0c0c0c;
-    font-size: 40px;
-}
+  min-height: 100vh;
+  font-family: "Cast Trial", "Bebas Neue", sans-serif;
+  font-weight: 400;
+  color: #0c0c0c;
+  font-size: 40px;
 
-.hero {
+  display: grid;
+  place-content: center;
+}
+.wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
 }
-.hero_wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+label {
+    position: absolute;
+    top: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #002271;
+    color: #ecf4fb;
+    padding-inline: 1rem;
+}
+input {
+  width: 30vw;
 
-    width: inherit;
-    height: inherit;
+  outline: none;
+  border: 1px solid var(--input-border);
+  &:is(:hover, :focus, :focus-within, :focus-visible) {
+    border-color: var(--input-border-focus);
+  }
+
+  font-size: 1.8rem;
+  line-height: 1.8;
+
+  padding-inline-start: calc(3.1 * var(--inlinePadding));
 }
-.hero_media {
+
+.result {
     position: fixed;
-    object-fit: contain;
-    z-index: 999;
-    pointer-events: none;
-    transform: scale(0.5);
-    transition: all 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
-}
-.hero_title {
-    position: fixed;
-    top: 50%;
+    top: 40px;
     left: 50%;
-    translate: -50% -50%;
-    width: 100%;
-    z-index: 10;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-.hero_title h1 {
-    text-align: center;
-    font-size: 25rem;
-}
-.ofh {
-    overflow: hidden;
+    transform: translateX(-50%);
+    padding-inline: 4rem;
+    padding-block: 1.5rem;
 }
