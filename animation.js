@@ -1,20 +1,40 @@
 import "./main.scss";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 
-const text = document.querySelector('input');
-const form = document.querySelector('form');
-const res = document.querySelector('.result');
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
+gsap.registerPlugin(ScrollTrigger);
 
-  const filterString = text.value.replace("#", "");
-  const redColor = filterString.substring(0, 2);
-  const greenColor = filterString.substring(2, 4);
-  const blueColor = filterString.substring(4, 6);
+const text = new SplitType('.heading', { types: 'chars'});
 
-  const result = () => `rgb(${parseInt(redColor, 16)}, ${parseInt(greenColor, 16)}, ${parseInt(blueColor, 16)})`;
-  console.log(result());
+gsap.set(".heading", { autoAlpha: 1 });
+gsap.set(text.chars, { yPercent: 100});
 
-  document.body.style.backgroundColor = result();
-  res.textContent = result();
-})
+const initialAnimation = gsap.to(text.chars, {
+  yPercent: 0,
+  ease: "sine.out",
+  stagger: {
+    from: "center",
+    amount: 0.5,
+    ease: "poser1.out",
+  },
+  onComplete: activateScrollAnimation,
+});
+
+function activateScrollAnimation() {
+  gsap.to(text.chars, {
+    yPercent: -100,
+    ease: "sine.out",
+    stagger: {
+      from: "center",
+      amount: 1,
+    },
+    scrollTrigger: {
+      trigger: ".heading",
+      start: "top top",
+      scrub: 1,
+      end: () => `+=${document.querySelector('.heading').offsetHeight + 0.25}`,
+    }
+  });
+}
