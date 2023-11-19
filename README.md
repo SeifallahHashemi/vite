@@ -6,3 +6,5 @@
 [Mouse Trail Animation Effect with Images](https://github.com/SeifallahHashemi/vite/tree/image_trail_animation)
 
 [Hex To RGB](https://github.com/SeifallahHashemi/vite/tree/Hex_to_RGB)
+
+[ScrollTrigger Text Animation](https://github.com/SeifallahHashemi/vite/tree/ScrollTrigger_Text_Animation)
