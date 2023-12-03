@@ -8,3 +8,5 @@
 [Hex To RGB](https://github.com/SeifallahHashemi/vite/tree/Hex_to_RGB)
 
 [ScrollTrigger Text Animation](https://github.com/SeifallahHashemi/vite/tree/ScrollTrigger_Text_Animation)
+
+[Magic Mouse Move Effect](https://github.com/SeifallahHashemi/vite/tree/magic_mouse_effect)
