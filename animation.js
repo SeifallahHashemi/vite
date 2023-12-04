@@ -1,85 +1,161 @@
-import "./main.scss";
+{
+	const body = document.body;
 
+	// helper functions
+	const MathUtils = {
+		lerp: (a, b, n) => (1 - n) * a + n * b,
+		distance: (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1),
+	};
 
-// Trailing Images
-const hero = document.querySelector('.hero'),
-heroTitle = document.querySelector('.hero-title > .ofh > h1');
+	// get the mouse position
+	const getMousePos = (ev) => {
+		let posx = 0;
+		let posy = 0;
+		if (!ev) ev = window.event;
+		if (ev.pageX || ev.pageY) {
+			posx = ev.pageX;
+			posy = ev.pageY;
+		} else if (ev.clientX || ev.clientY) {
+			posx = ev.clientX + body.scrollLeft + docEl.scrollLeft;
+			posy = ev.clientY + body.scrollTop + docEl.scrollTop;
+		}
+		return { x: posx, y: posy };
+	};
 
-const settings = {
-  isEnabled: false,
-  count: 1,
-  time: 50,
-}
-const images = [
-  './images/hero_ (1).jpeg',
-  './images/hero_ (1).jpg',
-  './images/hero_ (1).png',
-  './images/hero_ (2).jpeg',
-  './images/hero_ (2).jpg',
-  './images/hero_ (2).png',
-  './images/hero_ (3).jpeg',
-  './images/hero_ (3).jpg',
-  './images/hero_ (4).jpeg',
-  './images/hero_ (4).jpg',
-  './images/hero_ (5).jpg',
-  './images/hero_ (6).jpg',
-]
+	let mousePos = (lastMousePos = cacheMousePos = { x: 0, y: 0 });
 
-const loadImages = () => {
-  for (let i = 0; i < images.length; i++) {
-    let link = document.createElement('link');
-    link.rel = 'preload'
-    link.as = 'image';
-    link.href = images[i],
-    document.head.appendChild(link)
-  }
-}
-const calcIndex = (length) => {
-  settings.count++;
-  if (settings.count == length) settings.count = 0
-  return settings.count
-}
-const animateImage = (event) => {
-  const image = document.createElement('img')
-  const imageSize = 20
-  const countIndex = calcIndex(images.length)
+	// update the mouse position
+	window.addEventListener("mousemove", (ev) => (mousePos = getMousePos(ev)));
 
-  image.classList.add('hero_media')
-  image.setAttribute('src', images[countIndex])
-  image.style.width = `${imageSize}rem`
-  image.style.height = `${imageSize}rem`
-  image.style.top = event.pageY - (imageSize * 10) / 2 + 'px';
-  image.style.left = event.pageX - (imageSize * 10) / 2 + 'px';
+	const getMouseDistance = () =>
+		MathUtils.distance(mousePos.x, mousePos.y, lastMousePos.x, lastMousePos.y);
 
-  hero.appendChild(image);
+	class Image {
+		constructor(el) {
+			this.DOM = { el: el };
+			this.defaultStyle = {
+				scale: 1,
+				x: 0,
+				y: 0,
+				opacity: 0,
+			};
+			this.getRect();
+		}
 
-  const randomDeg = Math.floor(Math.random() * 15);
-  window.setTimeout(() => {
-    image.style.transform = `scale(1)`
-    image.style.transform = `rotate(${randomDeg}deg)`
-  }, 50)
+		getRect() {
+			this.rect = this.DOM.el.getBoundingClientRect();
+		}
+		isActive() {
+			return TweenMax.isTweening(this.DOM.el) || this.DOM.el.style.opacity != 0;
+		}
+	}
 
-  window.setTimeout(() => {
-    image.style.opacity = 0
-    image.style.filter = `blur(10px)`
-    image.style.transform = `scale(0.25)`
-  }, 1500)
+	class ImageTrail {
+		constructor() {
+			this.DOM = { content: document.querySelector(".content") };
+			this.images = [];
+			[...this.DOM.content.querySelectorAll("img")].forEach((img) =>
+				this.images.push(new Image(img))
+			);
+			this.imagesTotal = this.images.length;
+			this.imgPosition = 0;
+			this.zIndexVal = 1;
+			this.threshold = 100;
+			requestAnimationFrame(() => this.render());
+		}
+		render() {
+			let distance = getMouseDistance();
+			cacheMousePos.x = MathUtils.lerp(
+				cacheMousePos.x || mousePos.x,
+				mousePos.x,
+				0.1
+			);
+			cacheMousePos.y = MathUtils.lerp(
+				cacheMousePos.y || mousePos.y,
+				mousePos.y,
+				0.1
+			);
 
-  window.setTimeout(() => {
-    hero.removeChild(image)
-  }, 2500)
-}
+			if (distance > this.threshold) {
+				this.showNextImage();
 
-window.addEventListener('mousemove', (event) => {
-  if (!settings.isEnabled) {
-    settings.isEnabled = true;
-    setTimeout(() => {
-      settings.isEnabled = false
-    }, settings.time)
-    animateImage(event)
-  }
-})
+				++this.zIndexVal;
+				this.imgPosition =
+					this.imgPosition < this.imagesTotal - 1 ? this.imgPosition + 1 : 0;
 
-window.onload = () => {
-  loadImages()
+				lastMousePos = mousePos;
+			}
+
+			let isIdle = true;
+			for (let img of this.images) {
+				if (img.isActive()) {
+					isIdle = false;
+					break;
+				}
+			}
+			if (isIdle && this.zIndexVal !== 1) {
+				this.zIndexVal = 1;
+			}
+
+			requestAnimationFrame(() => this.render());
+		}
+		showNextImage() {
+			const img = this.images[this.imgPosition];
+			TweenMax.killTweensOf(img.DOM.el);
+
+			new TimelineMax()
+				.set(
+					img.DOM.el,
+					{
+						startAt: { opacity: 0, scale: 1 },
+						opacity: 1,
+						scale: 1,
+						zIndex: this.zIndexVal,
+						x: cacheMousePos.x - img.rect.width / 2,
+						y: cacheMousePos.y - img.rect.height / 2,
+					},
+					0
+				)
+				.to(
+					img.DOM.el,
+					1  ,
+					{
+						ease: Expo.easeOut,
+						x: mousePos.x - img.rect.width / 2,
+						y: mousePos.y - img.rect.height / 2,
+					},
+					0
+				)
+				.to(
+					img.DOM.el,
+					1.5,
+					{
+						ease: Power1.easeOut,
+					},
+					0.5
+					)
+					
+					.to(
+						img.DOM.el,
+						1.5,
+						{
+							ease: Quint.easeOut,
+							y: "100vh",
+							opacity: 0,
+					},
+					0.75
+				);
+		}
+	}
+
+	// preload images
+	const preloadImages = () => {
+		return new Promise((resolve, reject) => {
+			imagesLoaded(document.querySelectorAll(".content__img"), resolve);
+		});
+	};
+
+	preloadImages().then(() => {
+		new ImageTrail();
+	});
 }
