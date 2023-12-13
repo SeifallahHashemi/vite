@@ -9,4 +9,4 @@
 
 [ScrollTrigger Text Animation](https://github.com/SeifallahHashemi/vite/tree/ScrollTrigger_Text_Animation)
 
-[Magic Mouse Move Effect](https://github.com/SeifallahHashemi/vite/tree/magic_mouse_effect)
+[Four Way To Create Gradient Border Animation](https://github.com/SeifallahHashemi/vite/tree/animated_gradient_borders)
