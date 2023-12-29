@@ -10,3 +10,5 @@
 [ScrollTrigger Text Animation](https://github.com/SeifallahHashemi/vite/tree/ScrollTrigger_Text_Animation)
 
 [Four Way To Create Gradient Border Animation](https://github.com/SeifallahHashemi/vite/tree/animated_gradient_borders)
+
+[Spotlight Glowing Card](https://github.com/SeifallahHashemi/vite/tree/hero_section_with_glowing_effect)
