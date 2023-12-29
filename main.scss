@@ -1,4 +1,5 @@
 @import url("./reset.css");
+/* global styles */
 @property --angle {
   syntax: "<angle>";
   inherits: true;
@@ -8,118 +9,115 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-clip: padding-box;
+  // background-clip: padding-box;
 }
 
 html,
 body {
-  min-height: 100vh;
-  width: 100vw;
-  background-color: #000a30;
+  // min-height: 100vh;
+  // width: 100vw;
+  // background-color: #000a30;
+  background-color: #000;
 }
 body {
   display: grid;
   place-content: center;
+  overflow-x: clip;
 }
-main {
+.centered {
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  isolation: isolate;
+  justify-content: center;
+  align-items: center;
 }
-/* First Card */
-.card {
-  color: #fff;
-  --border-width: 1px;
-  --bg-color: #000a30;
-  --border-radius: 8px;
-  border: var(--border-width) solid;
-  border-image: conic-gradient(
-      from var(--angle),
-      #381d6a 80%,
-      #3dcd 88%,
-      #afcc08 92%,
-      #c033a9 100%
-    )
-    1;
-  width: 60vw;
-  padding: 1rem 0.5rem;
-  animation: spin 3s linear infinite paused;
-  &:hover {
-    animation-play-state: running;
-  }
+.row {
+  flex-direction: row;
 }
-h1 {
-  font-size: 1.75rem;
-  font-weight: bolder;
-  line-height: 2.5;
+.row_wrap {
+  flex-flow: row wrap;
 }
-p {
-  font-size: 1.2rem;
-}
+/* Section-Menu */
+$bgc: #00ffae;
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 80%;
+  padding: 2rem;
+  --yPos: 100px;
+  --xPos: 100px;
+  .card {
+    position: relative;
+    width: 20rem;
+    height: 15rem;
+    background: radial-gradient(100rem circle at var(--xPos) var(--yPos), rgba($bgc, .2), transparent 15%);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s;
+    isolation: isolate;
+    &:hover {
+      transform: scale(0.97);
+      &::before {
+        opacity: 1;
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border-radius: inherit;
+      background: radial-gradient(60rem circle at var(--xPos) var(--yPos), rgb(0 ,255 ,174, .1), transparent 35%);
+      opacity: 0;
+      transition: all 0.15s ease-in-out;
+      z-index: 100;
+    }
+    .card-content {
+      position: absolute;
+      inset: 0.1rem;
+      background-color: #13161c;
+      transition: all 0.25s;
+      border-radius: inherit;
+      z-index: -1;
 
-@keyframes spin {
-  to {
-    --angle: 1turn;
-  }
-}
-/* Second Card */
-.card-two {
-  position: relative;
-  background: #000a30;
-  border: none;
-
-  &::before {
-    content: "";
-    position: absolute;
-    background-image: conic-gradient(
-      from var(--angle),
-      #031147 80%,
-      #3dcd 88%,
-      #afcc08 92%,
-      #c033a9 100%
-    );
-    inset: calc(var(--border-width) * -1.5);
-    z-index: -1;
-  }
-}
-/* Third Card */
-.card-three {
-  border: var(--border-width) solid transparent;
-  border-radius: 8px;
-  background-image: linear-gradient(var(--bg-color) 0 0),
-    conic-gradient(
-      from var(--angle),
-      #031147 80%,
-      #3dcd 88%,
-      #afcc08 92%,
-      #c033a9 100%
-    );
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-}
-/* Four Card */
-.card-four {
-  position: relative;
-  border-radius: var(--border-radius);
-  border: var(--border-width) solid transparent;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: calc(var(--border-width) * -1.75);
-    border: inherit;
-    border-radius: inherit;
-    background-image: conic-gradient(
-      from var(--angle),
-      #031147 80%,
-      #3dcd 88%,
-      #afcc08 92%,
-      #c033a9 100%
-    );
-    background-origin: border-box;
-    z-index: -1;
-    mask-image: linear-gradient(black, black), linear-gradient(black, black);
-    mask-clip: content-box, border-box;
-    mask-composite: exclude;
+      .content {
+        position: inherit;
+        top: 70%;
+        bottom: .5rem;
+        left: 1rem;
+        right: 1rem;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        overflow: clip;
+        color: #fff;
+        h2 {
+          font-family: Poppins, sans-serif;
+          font-weight: 900;
+        }
+        p {
+          font-family: Oswald, sans-serif;
+          font-size: 0.9rem;
+        }
+        div:not(.icon) {
+          grid-column: 2 / -1;
+        }
+        .icon {
+          grid-column: 1 / 2;
+          display: grid;
+          place-content: center;
+        }
+        svg {
+          width: 12px;
+          height: 12px;
+          color: #fff;
+        }
+      }
+    }
   }
 }
