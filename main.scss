@@ -32,92 +32,46 @@ body {
 .row {
   flex-direction: row;
 }
+.col {
+  flex-direction: column;
+}
 .row_wrap {
   flex-flow: row wrap;
 }
 /* Section-Menu */
-$bgc: #00ffae;
-.cards {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  width: 80%;
-  padding: 2rem;
-  --yPos: 100px;
-  --xPos: 100px;
-  .card {
-    position: relative;
-    width: 20rem;
-    height: 15rem;
-    background: radial-gradient(100rem circle at var(--xPos) var(--yPos), rgba($bgc, .2), transparent 15%);
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.15s;
-    isolation: isolate;
-    &:hover {
-      transform: scale(0.97);
-      &::before {
-        opacity: 1;
-      }
-    }
-    &::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      border-radius: inherit;
-      background: radial-gradient(60rem circle at var(--xPos) var(--yPos), rgb(0 ,255 ,174, .1), transparent 35%);
-      opacity: 0;
-      transition: all 0.15s ease-in-out;
-      z-index: 100;
-    }
-    .card-content {
-      position: absolute;
-      inset: 0.1rem;
-      background-color: #13161c;
-      transition: all 0.25s;
-      border-radius: inherit;
-      z-index: -1;
-
-      .content {
-        position: inherit;
-        top: 70%;
-        bottom: .5rem;
-        left: 1rem;
-        right: 1rem;
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        overflow: clip;
-        color: #fff;
-        h2 {
-          font-family: Poppins, sans-serif;
-          font-weight: 900;
-        }
-        p {
-          font-family: Oswald, sans-serif;
-          font-size: 0.9rem;
-        }
-        div:not(.icon) {
-          grid-column: 2 / -1;
-        }
-        .icon {
-          grid-column: 1 / 2;
-          display: grid;
-          place-content: center;
-        }
-        svg {
-          width: 12px;
-          height: 12px;
-          color: #fff;
-        }
-      }
-    }
+section {
+  width: 100vw;
+  height: 100vh;
+  gap: 2rem;
+}
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+p {
+  font-size: 1.5rem;
+}
+.indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 10px;
+  background-color: #1b5fff;
+  width: 100%;
+  z-index: 1000;
+  transform-origin: left;
+  scale: 0 1;
+  animation: scroll_indicator linear;
+  animation-timeline: scroll();
+}
+@keyframes scroll_indicator {
+  to {
+    scale: 1 1;
+  }
+}
+@for $i from 1 through 4 {
+  section:nth-child(#{$i}) {
+    background-color: rgb(random(255), random(255), random(255));
   }
 }
