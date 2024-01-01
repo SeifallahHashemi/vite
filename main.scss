@@ -40,6 +40,7 @@ body {
 }
 /* Section-Menu */
 section {
+  position: relative;
   width: 100vw;
   height: 100vh;
   gap: 2rem;
@@ -65,9 +66,43 @@ p {
   animation: scroll_indicator linear;
   animation-timeline: scroll();
 }
+img#img {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: auto;
+  object-fit: cover;
+  animation: fade_imageOut linear;
+  animation-timeline: view();
+  animation-range: exit;
+}
+.img,h2,p {
+  animation: fade_imageIn linear;
+  animation-timeline: view();
+}
 @keyframes scroll_indicator {
   to {
     scale: 1 1;
+  }
+}
+@keyframes fade_imageIn {
+  from {
+    scale: 0.75;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+@keyframes fade_imageOut {
+  from {
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    scale: 3;
+    opacity: 0;
   }
 }
 @for $i from 1 through 4 {
