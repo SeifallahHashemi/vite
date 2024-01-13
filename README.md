@@ -12,3 +12,23 @@
 [Four Way To Create Gradient Border Animation](https://github.com/SeifallahHashemi/vite/tree/animated_gradient_borders)
 
 [Spotlight Glowing Card](https://github.com/SeifallahHashemi/vite/tree/hero_section_with_glowing_effect)
+
+[Text Reveal With GSAP](https://github.com/SeifallahHashemi/vite/tree/text_reveal_with_gsap)
+
+[Scrub Animation with gsap](https://github.com/SeifallahHashemi/vite/tree/Scrub_Animation_gsap)
+
+[AnimatedGradientBorders](https://github.com/SeifallahHashemi/vite/tree/animated_gradient_borders)
+
+[CssOnlyScrollBasedAnimation](https://github.com/SeifallahHashemi/vite/tree/css_only_scroll_based_animation)
+
+[CssOnlyScrollBasedAnimation_2](https://github.com/SeifallahHashemi/vite/tree/css_only_scroll_based_animation_2)
+
+[HeroSectionWithGlowingEffect](https://github.com/SeifallahHashemi/vite/tree/hero_section_with_glowing_effect)
+
+[ImageTrailAnimationTwo](https://github.com/SeifallahHashemi/vite/tree/image_trail_animation_two)
+
+[ImageTrailAnimation](https://github.com/SeifallahHashemi/vite/tree/image_trail_animation)
+
+[InfiniteHorizontalScroll](https://github.com/SeifallahHashemi/vite/tree/infinite_horizontal_scroll)
+
+[MagicMouseEffect](https://github.com/SeifallahHashemi/vite/tree/magic_mouse_effect)
