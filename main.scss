@@ -14,10 +14,12 @@
 
 html,
 body {
-  // min-height: 100vh;
+  min-height: 100vh;
   // width: 100vw;
   // background-color: #000a30;
-  background-color: #000;
+  background-color: #090B17;
+  color: aliceblue;
+  font-family: "Poppins", sans-serif;
 }
 body {
   display: grid;
@@ -38,75 +40,45 @@ body {
 .row_wrap {
   flex-flow: row wrap;
 }
+ul, li, ol {
+  list-style: none;
+}
 /* Section-Menu */
-section {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+body {
   gap: 2rem;
 }
-h2 {
-  text-align: center;
-  font-size: 2rem;
+h1 {
+  font-size: xx-large;
   font-weight: bolder;
 }
-p {
-  font-size: 1.5rem;
+.scroller__wrapper {
+  max-width: 600px;
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  overflow: hidden;
 }
-.indicator {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 10px;
-  background-color: #1b5fff;
-  width: 100%;
-  z-index: 1000;
-  transform-origin: left;
-  scale: 0 1;
-  animation: scroll_indicator linear;
-  animation-timeline: scroll();
+.scroller {
+  width: max-content;
+  display: flex;
+  gap: 1rem;
+  animation: scroll infinite var(--direction, forwards) var(--duration, 15s) linear;
 }
-img#img {
-  position: absolute;
-  inset: 0;
-  width: 100vw;
-  height: auto;
-  object-fit: cover;
-  animation: fade_imageOut linear;
-  animation-timeline: view();
-  animation-range: exit;
+.scroller li {
+  padding: 1rem 2rem;
+  background-color: #ffa815;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900, #010048);
+  text-transform: capitalize;
 }
-.img,h2,p {
-  animation: fade_imageIn linear;
-  animation-timeline: view();
+
+.scroller__wrapper[data-direction="right"] {
+  --direction: reverse;
 }
-@keyframes scroll_indicator {
+.scroller__wrapper[data-direction="left"] {
+  --direction: forwards;
+}
+
+@keyframes scroll {
   to {
-    scale: 1 1;
-  }
-}
-@keyframes fade_imageIn {
-  from {
-    scale: 0.75;
-    opacity: 0;
-  }
-  to {
-    scale: 1;
-    opacity: 1;
-  }
-}
-@keyframes fade_imageOut {
-  from {
-    scale: 1;
-    opacity: 1;
-  }
-  to {
-    scale: 3;
-    opacity: 0;
-  }
-}
-@for $i from 1 through 4 {
-  section:nth-child(#{$i}) {
-    background-color: rgb(random(255), random(255), random(255));
+    transform: translate(calc(-50% - 0.5rem));
   }
 }
