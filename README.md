@@ -32,3 +32,5 @@
 [InfiniteHorizontalScroll](https://github.com/SeifallahHashemi/vite/tree/infinite_horizontal_scroll)
 
 [MagicMouseEffect](https://github.com/SeifallahHashemi/vite/tree/magic_mouse_effect)
+
+[AllKindesOfBackgroundGradient](https://github.com/SeifallahHashemi/vite/tree/all_kindesOf_background_gradient)
