@@ -34,3 +34,5 @@
 [MagicMouseEffect](https://github.com/SeifallahHashemi/vite/tree/magic_mouse_effect)
 
 [AllKindesOfBackgroundGradient](https://github.com/SeifallahHashemi/vite/tree/all_kindesOf_background_gradient)
+
+[Lamp with GSAP](https://github.com/SeifallahHashemi/vite/tree/lamp)
