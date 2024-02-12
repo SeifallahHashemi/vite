@@ -58,6 +58,9 @@ ol {
   z-index: 1000000;
   backdrop-filter: blur(120px);
 }
+.circles {
+  filter: url(#shadowed-goo);
+}
 .circle {
   width: 300px;
   aspect-ratio: 1 / 1;
@@ -81,4 +84,9 @@ ol {
 }
 .circle--teal {
   background-color: #ebf8fa;
+}
+
+svg {
+  width: 0;
+  height: 0;
 }
